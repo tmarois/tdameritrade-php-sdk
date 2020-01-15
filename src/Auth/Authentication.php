@@ -49,8 +49,7 @@ class Authentication
      * Set Alpaca 
      *
      */
-    public function __construct(TDAmeritrade $td)
-    {
+    public function __construct(TDAmeritrade $td) {
         $this->td = $td;
     }
 
@@ -59,8 +58,7 @@ class Authentication
      *
      * @return string
      */
-    public function setClientId($clientId)
-    {
+    public function setClientId($clientId) {
         $this->clientId = $clientId;
         return $this;
     }
@@ -70,8 +68,7 @@ class Authentication
      *
      * @return string
      */
-    public function getClientId()
-    {
+    public function getClientId() {
         return $this->clientId;
     }
 
@@ -80,8 +77,7 @@ class Authentication
      *
      * @return string
      */
-    public function setAccessToken($refreshToken)
-    {
+    public function setAccessToken($refreshToken) {
         $this->refreshToken = $refreshToken;
         return $this;
     }
@@ -91,8 +87,7 @@ class Authentication
      *
      * @return string
      */
-    public function getAccessToken()
-    {
+    public function getAccessToken() {
         return $this->refreshToken;
     }
 
@@ -101,8 +96,7 @@ class Authentication
      *
      * @return string
      */
-    public function setRequestURI($requestUri)
-    {
+    public function setRequestURI($requestUri) {
         $this->requestURI = $requestUri;
         return $this;
     }
@@ -112,8 +106,7 @@ class Authentication
      *
      * @return string
      */
-    public function getRequestURI()
-    {
+    public function getRequestURI() {
         return $this->requestURI;
     }
 
@@ -122,8 +115,7 @@ class Authentication
      *
      * @return string
      */
-    public function getPath()
-    {
+    public function getPath() {
         return $this->authPath;
     }
 

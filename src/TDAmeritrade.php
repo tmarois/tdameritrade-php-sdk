@@ -46,8 +46,7 @@ class TDAmeritrade
      *
      * @return string
      */
-    public function getRoot()
-    {
+    public function getRoot() {
         return $this->apiPath;
     }
 
@@ -56,8 +55,7 @@ class TDAmeritrade
      *
      * @return string
      */
-    public function getPath($handle)
-    {
+    public function getPath($handle) {
         return $this->paths[$handle] ?? false;
     }
 
@@ -80,8 +78,7 @@ class TDAmeritrade
      *
      * @return TD\Request
      */
-    public function request($handle, $params = [], $type = 'GET', $url = null)
-    {
+    public function request($handle, $params = [], $type = 'GET', $url = null) {
         return (new Request($this))->send($handle, $params, $type, $url);
     }
 
