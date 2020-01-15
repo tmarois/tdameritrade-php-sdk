@@ -52,7 +52,7 @@ class TDAmeritrade
      */
     private $paths = [
         'auth'         => '/v1/oauth2/token',
-        'account'      => '/v1/account/{accountId}',
+        'account'      => '/v1/accounts/{accountId}',
         'accounts'     => '/v1/accounts',
         'order'        => '/v1/accounts/{accountId}/orders/{orderId}',
         'orders'       => '/v1/accounts/{accountId}/orders'
