@@ -1,7 +1,11 @@
 <?php namespace TD;
 
-use TD\Auth\Authentication;
 use TD\Request;
+use TD\Auth\Authentication;
+
+use TD\Account\Accounts;
+use TD\Account\Orders;
+use TD\Account\Positions;
 
 class TDAmeritrade
 {
@@ -12,6 +16,27 @@ class TDAmeritrade
      * @var TD\Auth\Authentication
      */
     private $auth;
+
+    /**
+     * Orders
+     *
+     * @var TD\Account\Orders
+     */
+    private $orders;
+
+    /**
+     * Accounts
+     *
+     * @var TD\Account\Accounts
+     */
+    private $accounts;
+
+    /**
+     * Positions
+     *
+     * @var TD\Account\Positions
+     */
+    private $positions;
 
     /**
      * API Path
@@ -27,10 +52,10 @@ class TDAmeritrade
      */
     private $paths = [
         'auth'         => '/v1/oauth2/token',
-        'account'      => '/v1/account/{ACCOUNTID}',
+        'account'      => '/v1/account/{accountId}',
         'accounts'     => '/v1/accounts',
-        'order'        => '/v1/accounts/{ACCOUNTID}/orders/{ORDERID}',
-        'orders'       => '/v1/accounts/{ACCOUNTID}/orders'
+        'order'        => '/v1/accounts/{accountId}/orders/{orderId}',
+        'orders'       => '/v1/accounts/{accountId}/orders'
     ];
 
     /**
@@ -71,6 +96,43 @@ class TDAmeritrade
         }
 
         return ($this->auth = (new Authentication($this)));
+    }
+
+    /**
+     * orders()
+     *
+     * @return TD\Account\Orders
+     */
+    public function orders($accountId) {
+        return (new Orders($this, $accountId));
+    }
+
+    /**
+     * accounts()
+     *
+     * @return TD\Account\Accounts
+     */
+    public function accounts()
+    {
+        if ($this->accounts) {
+            return $this->accounts;
+        }
+
+        return ($this->accounts = (new Accounts($this)));
+    }
+
+    /**
+     * positions()
+     *
+     * @return TD\Account\Positions
+     */
+    public function positions()
+    {
+        if ($this->positions) {
+            return $this->positions;
+        }
+
+        return ($this->positions = (new Positions($this, $accountId)));
     }
 
     /**
