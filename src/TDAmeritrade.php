@@ -103,8 +103,13 @@ class TDAmeritrade
      *
      * @return TD\Account\Orders
      */
-    public function orders($accountId) {
-        return (new Orders($this, $accountId));
+    public function orders($accountId) 
+    {
+        if ($this->orders) {
+            return $this->orders;
+        }
+
+        return ($this->orders = (new Orders($this, $accountId)));
     }
 
     /**
@@ -126,7 +131,7 @@ class TDAmeritrade
      *
      * @return TD\Account\Positions
      */
-    public function positions()
+    public function positions($accountId)
     {
         if ($this->positions) {
             return $this->positions;
@@ -140,8 +145,8 @@ class TDAmeritrade
      *
      * @return TD\Request
      */
-    public function request($handle, $params = [], $type = 'GET', $url = null) {
-        return (new Request($this))->send($handle, $params, $type, $url);
+    public function request($handle, $query = [], $params = [], $type = 'GET', $url = null) {
+        return (new Request($this))->send($handle, $query, $params, $type, $url);
     }
 
 }

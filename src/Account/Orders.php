@@ -36,7 +36,7 @@ class Orders
      * @return array
      */
     public function get($id) {
-        return $this->td->request('order',['accountId'=>$this->accountId,'orderId'=>$id],'GET')->response();
+        return $this->td->request('order',[],['accountId'=>$this->accountId,'orderId'=>$id],'GET')->response();
     }
 
     /**
@@ -45,7 +45,7 @@ class Orders
      * @return array
      */
     public function create($options = []) {
-        return $this->td->request('orders',array_merge(['accountId'=>$this->accountId],$options),'POST')->response();
+        return $this->td->request('orders',$options,['accountId'=>$this->accountId],'POST')->response();
     }
 
     /**
@@ -54,7 +54,7 @@ class Orders
      * @return array
      */
     public function replace($id, $options = []) {
-        return $this->td->request('order',array_merge(['accountId'=>$this->accountId,'orderId'=>$id],$options),'PUT')->response();
+        return $this->td->request('order',$options,['accountId'=>$this->accountId],'PUT')->response();
     }
 
     /**
@@ -63,6 +63,8 @@ class Orders
      * @return array
      */
     public function cancel($id) {
-        return $this->td->request('order',['accountId'=>$this->accountId,'orderId'=>$id],'DELETE')->response();
+        return $this->td->request('order',$options,['accountId'=>$this->accountId],'DELETE')->response();
     }
 }
+
+

@@ -39,38 +39,45 @@ class Request
      *
      * @return Alpaca\Response
      */
-    public function send($handle, $params = [], $type = 'GET')
+    public function send($handle, $query = [], $params = [], $type = 'GET')
     {
-        // build and prepare our full path rul
         $uri = $this->prepareUrl($handle, $params);
-
-        $query = [];
-        $form = [];
+        
         $headers = [];
-
-        if ($handle != 'auth') 
-        {
+        if ($handle != 'auth') {
             $headers = [
                 'authorization' => 'Bearer '.$this->td->auth()->getAccessToken()
             ];
 
-            $query = $params;
-        }
-        else {
-            $form = $params;
+            if ($handle == 'orders') {
+                $headers['Content-Type'] =  'application/json';
+            }
         }
 
-        // lets track how long it takes for this request
         $seconds = 0;
 
-        $request = $this->client->request($type, $this->td->getRoot().$uri, [
-            'form_params' => $form,
-            'query' => $query,
+        $fn = [
             'headers' => $headers,
             'on_stats' => function (\GuzzleHttp\TransferStats $stats) use (&$seconds) {
                 $seconds = $stats->getTransferTime(); 
              }
-        ]);
+        ];
+
+        if ($params && $handle != 'orders') {
+            $fn['form_params'] = $params;
+        }
+
+        if ($query) 
+        {
+            if ($handle == 'orders') {
+                $fn['body'] = json_encode($query,1);
+            }
+            else {
+                $fn['query'] = $query;
+            }
+        }
+
+        $request = $this->client->request($type, $this->td->getRoot().$uri, $fn);
 
         // send and return the request response
         return (new Response($request, $seconds));

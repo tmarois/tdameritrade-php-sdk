@@ -37,7 +37,7 @@ class Positions
      */
     public function getAll() 
     {
-        $accountDetails = $this->td->accounts()->get($this->accountId, ['fields'=>'positions'],'GET')[0]['securitiesAccount']['positions'] ?? [];
+        $accountDetails = $this->td->accounts()->get($this->accountId,['fields'=>'positions'])['securitiesAccount']['positions'] ?? [];
         return $accountDetails ?? [];
     }
 

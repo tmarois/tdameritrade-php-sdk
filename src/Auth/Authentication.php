@@ -140,7 +140,7 @@ class Authentication
      */
     public function requestAccessToken($code)
     {
-        return $this->td->request('auth',[
+        return $this->td->request('auth',[],[
             'grant_type' => 'authorization_code',
             'code' => $code,
             'access_type' => 'offline',
@@ -156,7 +156,7 @@ class Authentication
      */
     public function authRefresh($code)
     {
-        return $this->td->request('auth',[
+        return $this->td->request('auth',[],[
             'grant_type' => 'refresh_token',
             'refresh_token' => $code,
             'client_id' => $this->getClientId()
