@@ -44,26 +44,35 @@ class Request
         // build and prepare our full path rul
         $uri = $this->prepareUrl($handle, $params);
 
+        $query = [];
+        $form = [];
         $headers = [];
-        if ($handle != 'auth') {
+
+        if ($handle != 'auth') 
+        {
             $headers = [
                 'authorization' => 'Bearer '.$this->td->auth()->getAccessToken()
             ];
+
+            $query = $params;
+        }
+        else {
+            $form = $params;
         }
 
         // lets track how long it takes for this request
         $seconds = 0;
 
-        // // push request
         $request = $this->client->request($type, $this->td->getRoot().$uri, [
-            'form_params' => $params,
+            'form_params' => $form,
+            'query' => $query,
             'headers' => $headers,
             'on_stats' => function (\GuzzleHttp\TransferStats $stats) use (&$seconds) {
                 $seconds = $stats->getTransferTime(); 
              }
         ]);
 
-        // // send and return the request response
+        // send and return the request response
         return (new Response($request, $seconds));
     }
 

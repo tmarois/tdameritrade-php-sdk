@@ -134,7 +134,7 @@ class Authentication
     }
 
     /**
-     * requestRefreshToken()
+     * requestAccessToken()
      *
      * @return string
      */
@@ -143,9 +143,24 @@ class Authentication
         return $this->td->request('auth',[
             'grant_type' => 'authorization_code',
             'code' => $code,
+            'access_type' => 'offline',
             'client_id' => $this->getClientId(),
             'redirect_uri' => $this->getRequestURI()
-        ],'POST')->contents();
+        ],'POST')->response();
+    }
+
+    /**
+     * authRefresh()
+     *
+     * @return string
+     */
+    public function authRefresh($code)
+    {
+        return $this->td->request('auth',[
+            'grant_type' => 'refresh_token',
+            'refresh_token' => $code,
+            'client_id' => $this->getClientId()
+        ],'POST')->response();
     }
 
 }

@@ -10,6 +10,13 @@ class Response
     private $request;
 
     /**
+     * Guzzle Request
+     *
+     * @return GuzzleHttp\Psr7\Response
+     */
+    private $body;
+
+    /**
      * Speed of request in seconds
      *
      * @return float
@@ -24,6 +31,8 @@ class Response
     {
         $this->request = $request;
 
+        $this->body    = json_decode($this->request->getBody()->getContents(),true);
+
         $this->seconds = $seconds;
     }
 
@@ -33,8 +42,8 @@ class Response
      * get contents
      *
      */
-    public function contents() {
-        return json_decode($this->request->getBody()->getContents(),true);
+    public function response() {
+        return $this->body;
     }
 
     /**
@@ -56,7 +65,7 @@ class Response
     public function results()
     {
         return [
-            'response' => $this->contents(),
+            'response' => $this->response(),
             'seconds' => $this->seconds()
         ];
     }

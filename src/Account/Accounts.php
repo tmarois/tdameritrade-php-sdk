@@ -26,7 +26,7 @@ class Accounts
      * @return array
      */
     public function get($id, $options = []) {
-        return $this->td->request('account',array_merge(['accountId'=>$id],$options), 'GET')->results();
+        return $this->td->request('account',array_merge(['accountId'=>$id],$options), 'GET')->response();
     }
 
     /**
@@ -35,7 +35,7 @@ class Accounts
      * @return array
      */
     public function getAll() {
-        return $this->td->request('accounts',[],'GET')->results();
+        return $this->td->request('accounts',[],'GET')->response();
     }
 
 }
