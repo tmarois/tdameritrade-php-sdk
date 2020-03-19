@@ -14,7 +14,9 @@
 
 	"require": {
         "php": ">=7",
-        "guzzlehttp/guzzle": "~6.0"
+		"guzzlehttp/guzzle": "~6.0",
+		"amphp/websocket-client": "^0.2.4",
+		"nesbot/carbon": "^2.0"
 	},
 
 	"require-dev": {
