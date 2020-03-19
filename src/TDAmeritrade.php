@@ -6,6 +6,7 @@ use TD\Auth\Authentication;
 use TD\Account\Accounts;
 use TD\Account\Orders;
 use TD\Account\Positions;
+use TD\Stream\WebSocket;
 
 class TDAmeritrade
 {
@@ -51,11 +52,12 @@ class TDAmeritrade
      * @var array
      */
     private $paths = [
-        'auth'         => '/v1/oauth2/token',
-        'account'      => '/v1/accounts/{accountId}',
-        'accounts'     => '/v1/accounts',
-        'order'        => '/v1/accounts/{accountId}/orders/{orderId}',
-        'orders'       => '/v1/accounts/{accountId}/orders'
+        'auth'           => '/v1/oauth2/token',
+        'userprincipals' => '/v1/userprincipals',
+        'account'        => '/v1/accounts/{accountId}',
+        'accounts'       => '/v1/accounts',
+        'order'          => '/v1/accounts/{accountId}/orders/{orderId}',
+        'orders'         => '/v1/accounts/{accountId}/orders'
     ];
 
     /**
@@ -138,6 +140,20 @@ class TDAmeritrade
         }
 
         return ($this->positions = (new Positions($this, $accountId)));
+    }
+
+    /**
+     * auth()
+     *
+     * @return TD\Auth\Authentication
+     */
+    public function stream()
+    {
+        if ($this->websocket) {
+            return $this->websocket;
+        }
+
+        return ($this->websocket = (new WebSocket($this)));
     }
 
     /**

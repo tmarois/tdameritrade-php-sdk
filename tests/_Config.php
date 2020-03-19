@@ -2,7 +2,7 @@
 
 use Dotenv\Dotenv;
 
-class Config extends \PHPUnit\Framework\TestCase
+class _Config extends \PHPUnit\Framework\TestCase
 {
     /**
      * Config variable

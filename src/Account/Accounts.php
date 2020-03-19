@@ -38,4 +38,13 @@ class Accounts
         return $this->td->request('accounts',[],[],'GET')->response();
     }
 
+    /**
+     * userPrincipals()
+     *
+     * @return array
+     */
+    public function userPrincipals($options = []) {
+        return $this->td->request('userprincipals',$options,[],'GET')->response();
+    }
+
 }
