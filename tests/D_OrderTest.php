@@ -94,13 +94,13 @@ class D_OrderTest extends _Config
             'complexOrderStrategyType' => 'NONE',
             'orderStrategyType' => "SINGLE",
             // 'stopPrice' => 0,
-            'price' => "0.2",
+            'price' => "10.50",
             'orderLegCollection' => [[
               'instruction' => 'Buy',
               'quantity' => '1',
                 'instrument' => [
                     "assetType" => "EQUITY",
-                    "symbol" => "UWT"
+                    "symbol" => "DWT"
                 ]
             ]]
         ];
@@ -109,8 +109,8 @@ class D_OrderTest extends _Config
 
         $order = $td->orders($this->config['ACCOUNTID'])->create($orderOption);
 
-        $orderOption['price'] = "0.25";
-        $order = $td->orders($this->config['ACCOUNTID'])->create($orderOption);
+        // $orderOption['price'] = "0.25";
+        // $order = $td->orders($this->config['ACCOUNTID'])->create($orderOption);
 
         print_r($order); 
 

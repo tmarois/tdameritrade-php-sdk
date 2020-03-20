@@ -40,6 +40,8 @@ class F_WebSocketTest extends _Config
  
             return true;
 
+        },function($status, $e){
+            print_r($status);
         }); 
 
     }

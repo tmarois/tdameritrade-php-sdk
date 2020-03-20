@@ -53,7 +53,7 @@ class WebSocket
                                     "credential" : "'.rawurlencode(http_build_query($credentials)).'",
                                     "token" : "'.$credentials['token'].'",
                                     "version" : "1.0"
-                                }
+                                 }
                             }
                         ]
                     }');
@@ -62,9 +62,25 @@ class WebSocket
                     {
                         "requests":[
                             {
+                                "service" : "ADMIN",
+                                "command" : "QOS", 
+                                "requestid" : "1",
+                                "account" : "'.$credentials['userid'].'",
+                                "source" : "'.$credentials['appid'].'",
+                                "parameters" : {
+                                    "qoslevel": "0"
+                                }
+                            }
+                        ]
+                    }'); 
+
+                    yield $connection->send('
+                    {
+                        "requests":[
+                            {
                                 "service" : "ACCT_ACTIVITY",
                                 "command" : "SUBS", 
-                                "requestid" : "1",
+                                "requestid" : "2",
                                 "account" : "'.$credentials['userid'].'",
                                 "source" : "'.$credentials['appid'].'",
                                 "parameters" : {
