@@ -22,7 +22,9 @@ class F_WebSocketTest extends _Config
 
         $td->stream()->run(function($payload, $i) {
 
-            $data = json_decode($payload,1);
+            // $data = json_decode($payload,1);
+
+            $data = $payload;
 
             $status = $data['response'][0]['content']['code'] ?? false;
 
@@ -36,7 +38,7 @@ class F_WebSocketTest extends _Config
                 # code...
             }
  
-            return false;
+            return true;
 
         }); 
 

@@ -29,12 +29,12 @@ class WebSocket
      * run()
      *
      */
-    public function run($fn) 
+    public function run($fn, $error) 
     {
         $data = $this->getPrincipals();
         $credentials = $this->setCredentials($data);
 
-        AmpLoop::run(function () use ($fn, $data, $credentials)
+        AmpLoop::run(function () use ($fn, $error, $data, $credentials)
             {
                 try 
                 {
@@ -82,7 +82,7 @@ class WebSocket
                         $i++;
                         $payload = yield $message->buffer();
 
-                        $r = $fn($payload, $i);
+                        $r = $fn(json_decode($payload,1),$i);
 
                         if ($r == false) {
                             $connection->close();
@@ -91,18 +91,13 @@ class WebSocket
                     }
                 }
                 catch (ClosedException $e) {
-                    print_r($e->getMessage());
-                    return false;
+                    return $error('CLOSED',$e);
                 }
                 catch (\Throwable $e) {
-                    print_r('ERROR=');
-                    print_r($e->getMessage());
-                    return false;
+                    return $error('ERROR',$e);
                 }
                 catch (\Exception $e) {
-                    print_r('ERROR=');
-                    print_r($e->getMessage());
-                    return false;
+                    return $error('ERROR',$e);
                 }
             }
         );

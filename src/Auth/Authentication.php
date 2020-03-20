@@ -154,11 +154,11 @@ class Authentication
      *
      * @return string
      */
-    public function authRefresh($code)
+    public function authRefresh($refreshToken)
     {
         return $this->td->request('auth',[],[
             'grant_type' => 'refresh_token',
-            'refresh_token' => $code,
+            'refresh_token' => $refreshToken,
             'client_id' => $this->getClientId()
         ],'POST')->response();
     }

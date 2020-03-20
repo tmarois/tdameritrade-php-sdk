@@ -10,7 +10,6 @@ use TD\Stream\WebSocket;
 
 class TDAmeritrade
 {
-
     /**
      * auth
      *
@@ -38,6 +37,13 @@ class TDAmeritrade
      * @var TD\Account\Positions
      */
     private $positions;
+
+    /**
+     * WebSocket
+     *
+     * @var TD\Stream\WebSocket
+     */
+    private $websocket;
 
     /**
      * API Path
